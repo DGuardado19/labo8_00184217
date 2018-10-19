@@ -1,27 +1,37 @@
 
+const navSlide = ()=>{
+    const burger = document.querySelector(".burger"); 
+    const nav = document.querySelector(".nav-links");
+    const navLinks = document.querySelectorAll('.nav-links li');
+
+    burger.addEventListener("click", ()=>{
+        nav.classList.toggle('nav-active');
+
+        navLinks.forEach((link, index) =>{
+            
+            if(link.style.animation)
+            {
+                link.style.animation = '';
+            }
+            else{
+                link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7+0.3}s`;
+            }
+            
+        });
+        burger.classList.toggle('toggle');
+    });
+
+}
+
+navSlide();
+/*********************************Colocar aca el desarrollo de su ejercicio***************************/
 let cont = 1;
 
 var bitacoras = [];
 
 var formulario = document.getElementById("bitacora");
 
-formulario.addEventListener("submit", (evt) => {
-    evt.preventDefault();
-    let bitacora = {
-        cant: cont,
-        fecha: formulario[1].value,
-        descripcion: formulario[2].value,
-        cantidad: formulario[3].value
-    }
 
-    if(formulario[1].value != "" && formulario[2].value != "" && formulario[3].value != ""){
-        bitacoras.push(bitacora);
-        cont++;
-        mostrar();
-    } else{
-        alert("Hola");
-    }
-});
 
 document.createElement("tr");
 
@@ -63,3 +73,62 @@ const mostrar = () => {
     });
     agregar();
 } 
+formulario.addEventListener("submit", (evt) => {
+    evt.preventDefault();
+    let bitacora = {
+        cant: cont,
+        fecha: formulario[1].value,
+        descripcion: formulario[2].value,
+        cantidad: formulario[3].value
+    }
+
+    if(formulario[1].value != "" && formulario[2].value != "" && formulario[3].value != "" && formulario[3].value > 0){
+        bitacoras.push(bitacora);
+        cont++;
+        mostrar();
+    } else{
+        alert("Rellene los datos, porfavor");
+    }
+});
+
+formulario[3].addEventListener("keyup", (evt) => {
+    if(formulario[3].value <= 0){
+        formulario[3].style = "border: 3px solid #FF0000 ";
+    } else if(formulario[3].value > 0){
+        formulario[3].style = "border: 3px solid #00FF00 ";
+    }
+});
+
+formulario[2].addEventListener("keyup", (evt) => {
+    if(formulario[2].value == ""){
+        formulario[2].style = "border: 3px solid #FF0000 ";
+    } else{
+        formulario[2].style = "border: 3px solid #00FF00 ";
+    }
+});
+
+formulario[3].addEventListener("focusout", (evt) => {
+    if(formulario[3].value == "" || formulario[3].value <= 0){
+        formulario[3].style = "border: 3px solid #FF0000 ";
+    } else{
+        formulario[3].style = "border: 3px solid #00FF00 ";
+    }
+});
+
+formulario[2].addEventListener("focusout", (evt) => {
+    if(formulario[2].value == ""){
+        formulario[2].style = "border: 3px solid #FF0000 ";
+    } else{
+        formulario[2].style = "border: 3px solid #00FF00 ";
+    }
+});
+
+formulario[1].addEventListener("focusout", (evt) => {
+    if(formulario[1].value == ""){
+        formulario[1].style = "border: 3px solid #FF0000 ";
+    } else{
+        formulario[1].style = "border: 3px solid #00FF00 ";
+    }
+});
+
+/** Se utilizo metodo distinto. se utilizan metedos aprendidos en guias pasada e internet */
